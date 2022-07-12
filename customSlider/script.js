@@ -26,8 +26,6 @@ right.addEventListener("click", function () {
     el = el.nextElementSibling;
   }
   dots[index].classList.add("active");
-
-  for (let j = 0; j < dots.length; j++) {}
 });
 
 left.addEventListener("click", function () {
@@ -36,4 +34,47 @@ left.addEventListener("click", function () {
     index = images.length - 1;
   }
   img.src = images[index];
+  var el = dots[0];
+  while (el) {
+    if (el.tagName === "DIV") {
+      el.classList.remove("active");
+    }
+    el = el.nextElementSibling;
+  }
+  dots[index].classList.add("active");
 });
+function autoPlay() {
+  index++;
+  if (index > images.length - 1) {
+    index = 0;
+  }
+  img.src = images[index];
+  var el = dots[0];
+  while (el) {
+    if (el.tagName === "DIV") {
+      el.classList.remove("active");
+    }
+    el = el.nextElementSibling;
+  }
+  dots[index].classList.add("active");
+}
+setInterval(() => {
+  autoPlay();
+}, 1500);
+
+for (let i = 0; i < dots.length; i++) {
+  dots[i].addEventListener("click", function () {
+    var el = dots[0];
+    while (el) {
+      if (el.tagName === "DIV") {
+        el.classList.remove("active");
+      }
+      el = el.nextElementSibling;
+    }
+    dots[i].classList.add("active");
+
+    for (let j = 0; j < images.length; j++) {
+      img.src = images[i];
+    }
+  });
+}
